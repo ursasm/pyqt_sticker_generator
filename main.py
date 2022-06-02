@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QHBoxLayout, QWidget, QGridLayout, \
-    QVBoxLayout
+    QVBoxLayout, QDesktopWidget
 
 from sticker_gen import *
 
@@ -10,9 +10,15 @@ class Window(QWidget):
     def __init__(self):
         super().__init__()
 
+        WIN_W = 500
+        WIN_H = 550
+
         self.setWindowTitle('Генератор наклеек')
         self.setWindowIcon(QtGui.QIcon(resource_path('LTV_icon.png')))
-        self.setGeometry(100, 100, 500, 550)
+        center = QDesktopWidget().availableGeometry().center()
+
+        self.setGeometry(center.x() - WIN_W // 2, center.y() - WIN_H // 2, WIN_W, WIN_H)
+
         self.setMaximumWidth(1500)
         self.setMaximumHeight(1800)
 
