@@ -58,3 +58,4 @@ def generate_stickers(model_name: str, sn_list: list):
         can.showPage()
 
     can.save()
+    return pdf_file_3

@@ -19,7 +19,7 @@ class Window(QWidget):
         main_layout = QVBoxLayout()
         sn_layout = QGridLayout()
 
-        # Labels ====================================================
+        # Labels =================================================================================
         self.text_model = QtWidgets.QLabel()
         self.text_model.setText('Введите название модели')
         self.text_model.adjustSize()
@@ -40,7 +40,7 @@ class Window(QWidget):
         self.text_sn_length.adjustSize()
         sn_layout.addWidget(self.text_sn_length, 3, 0)
 
-        # # Inputs ====================================================
+        # Inputs =================================================================================
         self.model_input = QtWidgets.QLineEdit()
         sn_layout.addWidget(self.model_input, 0, 1)
 
@@ -65,7 +65,7 @@ class Window(QWidget):
         self.sn_length_input.setValidator(self.validator_sn_l)
         sn_layout.addWidget(self.sn_length_input, 3, 1)
 
-        # SPECIFY SN ====================================================================
+        # SPECIFY SN ================================================================================
         ta_layout = QVBoxLayout()
         ta_layout.setContentsMargins(0, 5, 0, 5)
         self.enter_sn_ta = QtWidgets.QCheckBox()
@@ -84,13 +84,13 @@ class Window(QWidget):
         self.sn_text_area.setStyleSheet('background-color:#e1e1e1;')
         ta_layout.addWidget(self.sn_text_area, 2)
 
-        # Button ========================================================================
+        # Button =====================================================================================
         self.gen_btn = QtWidgets.QPushButton(self)
         self.gen_btn.setText('Сгенерировать наклейки')
         self.gen_btn.clicked.connect(self.gen_button_handler)
         ta_layout.addWidget(self.gen_btn, 3)
 
-        # Layouts ========================================================================
+        # Layouts ====================================================================================
         main_layout.addLayout(sn_layout, 0)
         main_layout.addItem(QtWidgets.QSpacerItem(200, 20))
         main_layout.addLayout(ta_layout, 1)
@@ -122,11 +122,17 @@ class Window(QWidget):
 
                 sn_list = generate_sn(prefix, b, e, sz)
 
-            generate_stickers(
+            f_name = generate_stickers(
                 model_name,
                 sn_list
             )
-            print(sn_list)
+            msg = QMessageBox()
+            msg.setWindowTitle("PDF сгенерирован")
+            msg.setText(f'Название файла: {f_name}')
+            msg.adjustSize()
+            msg.setIcon(QMessageBox.Information)
+
+            msg.exec_()
         except Exception as e:
             msg = QMessageBox()
             msg.setWindowTitle("Что можно было сделать не так?")
