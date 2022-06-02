@@ -12,6 +12,7 @@ class Window(QMainWindow):
 
         self.setWindowTitle('Генератор наклеек')
         self.setGeometry(100, 100, 550, 530)
+        self.setFixedSize(self.size())
 
         # Labels ====================================================
         self.text_model = QtWidgets.QLabel(self)
