@@ -90,16 +90,28 @@ class Window(QMainWindow):
 
     def gen_button_handler(self):
         try:
-            prefix = self.prefix_input.toPlainText()
-            b = int(self.from_sn_sticker_input.text())
-            e = int(self.to_sn_sticker_input.text())
-            sz = int(self.sn_length_input.text())
-
             model_name = self.model_input.toPlainText()
 
             if self.enter_sn_ta.isChecked():
                 sn_list = split_text(self.sn_text_area.toPlainText())
             else:
+                prefix = self.prefix_input.toPlainText()
+
+                begin = self.from_sn_sticker_input.text()
+                if begin == '':
+                    raise Exception('Введите число - начало диапазона серийных номеров')
+                b = int(begin)
+
+                end = self.to_sn_sticker_input.text()
+                if end == '':
+                    raise Exception('Введите число - конец диапазона серийных номеров')
+                e = int(end)
+
+                size = self.sn_length_input.text()
+                if size == '':
+                    raise Exception('Введите длину серийного номера')
+                sz = int(size)
+
                 sn_list = generate_sn(prefix, b, e, sz)
 
             generate_stickers(
